@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Zumbi ou Jedi Digital?</title>
+
+  <style>
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .box {
+      background: #1e293b;
+      max-width: 750px;
+      margin: auto;
+      padding: 35px;
+      border-radius: 16px;
+      box-shadow: 0 0 18px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      margin-bottom: 15px;
+    }
+
+    p {
+      color: #cbd5f5;
+    }
+
+    .situation {
+      font-size: 18px;
+      margin: 25px 0;
+      min-height: 110px;
+      line-height: 1.6;
+    }
+
+    button {
+      padding: 12px 22px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .zumbi {
+      background: #ef4444;
+      color: white;
+    }
+
+    .jedi {
+      background: #22c55e;
+      color: white;
+    }
+
+    .next {
+      background: #38bdf8;
+      margin-top: 20px;
+      color: #020617;
+      font-weight: bold;
+    }
+
+    .feedback {
+      margin-top: 22px;
+      font-size: 17px;
+      min-height: 70px;
+      line-height: 1.5;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+
+    <h1>🧠 Zumbi ou Jedi Digital?</h1>
+
+    <p>
+      Avalie seus hábitos de pesquisa e reflita sobre como você utiliza a internet
+      no seu processo de aprendizagem.
+    </p>
+
+    <div id="situation" class="situation"></div>
+
+    <div>
+      <button class="zumbi" onclick="responder('zumbi')">🧟 Zumbi</button>
+      <button class="jedi" onclick="responder('jedi')">🧙 Jedi</button>
+    </div>
+
+    <div id="feedback" class="feedback"></div>
+
+    <button class="next" onclick="proxima()">Próxima Situação</button>
+
+  </div>
+
+  <script>
+
+    const perguntas = [
+
+      {
+        texto: `
+Antes de começar:
+
+🧟 Zumbi Digital:
+Usa a internet no automático, sem questionar fontes.
+
+🧙 Jedi Digital:
+Pesquisa com atenção, compara informações e reflete.
+
+Não existem respostas certas ou erradas.
+O objetivo é reconhecer seus hábitos.
+        `,
+        zumbi: "Reconhecer hábitos automáticos é o primeiro passo para evoluir.",
+        jedi: "Ter consciência sobre como você pesquisa fortalece sua aprendizagem."
+      },
+
+      {
+        texto: "Copiei o primeiro link do Google sem conferir a fonte.",
+        zumbi: "Verificar a fonte ajuda a evitar informações equivocadas.",
+        jedi: "Questionar a fonte demonstra pensamento crítico."
+      },
+
+      {
+        texto: "Comparei diferentes sites antes de usar a informação.",
+        zumbi: "Comparar fontes amplia a qualidade da pesquisa.",
+        jedi: "Excelente atitude investigativa!"
+      },
+
+      {
+        texto: "Usei apenas resumos prontos da internet.",
+        zumbi: "Produzir seu próprio texto fortalece a compreensão.",
+        jedi: "Autonomia é essencial na formação acadêmica."
+      },
+
+      {
+        texto: "Fiz anotações durante a pesquisa.",
+        zumbi: "Organizar ideias facilita a aprendizagem.",
+        jedi: "Ótima estratégia de estudo."
+      },
+
+      {
+        texto: "Participei de fóruns ou grupos para tirar dúvidas.",
+        zumbi: "O diálogo enriquece o processo de aprendizagem.",
+        jedi: "Aprender em rede fortalece o conhecimento."
+      }
+
+    ];
+
+    let atual = 0;
+    let pontosJedi = 0;
+    let pontosZumbi = 0;
+
+    function mostrar() {
+
+      document.getElementById("situation").innerText =
+        perguntas[atual].texto;
+
+      document.getElementById("feedback").innerText = "";
+    }
+
+    function responder(escolha) {
+
+      const pergunta = perguntas[atual];
+
+      if (escolha === "zumbi") {
+
+        pontosZumbi++;
+
+        document.getElementById("feedback").innerText =
+          "🧟 " + pergunta.zumbi;
+      }
+
+      if (escolha === "jedi") {
+
+        pontosJedi++;
+
+        document.getElementById("feedback").innerText =
+          "🧙 " + pergunta.jedi;
+      }
+
+    }
+
+    function proxima() {
+
+      atual++;
+
+      if (atual >= perguntas.length) {
+        mostrarResultado();
+        return;
+      }
+
+      mostrar();
+    }
+
+    function mostrarResultado() {
+
+      let mensagem = "";
+
+      if (pontosJedi > pontosZumbi) {
+
+        mensagem = `
+🧙 Parabéns!
+
+Você demonstra hábitos investigativos, críticos e reflexivos.
+Continue fortalecendo essa postura ao longo da sua formação.
+        `;
+
+      } else if (pontosZumbi > pontosJedi) {
+
+        mensagem = `
+🧠 Atenção!
+
+Você identificou hábitos automáticos de pesquisa.
+Este é um ótimo momento para desenvolver mais autonomia.
+        `;
+
+      } else {
+
+        mensagem = `
+⚖️ Equilíbrio Digital!
+
+Você apresenta atitudes automáticas e reflexivas.
+O próximo passo é fortalecer o pensamento crítico.
+        `;
+      }
+
+      document.getElementById("situation").innerText =
+        "📊 Seu Perfil Digital";
+
+      document.getElementById("feedback").innerText =
+        mensagem;
+    }
+
+    mostrar();
+
+  </script>
+
+</body>
+</html>
