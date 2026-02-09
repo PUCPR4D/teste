@@ -21,6 +21,7 @@
       padding: 35px;
       border-radius: 16px;
       box-shadow: 0 0 18px rgba(0,0,0,0.5);
+      transition: background 0.5s;
     }
 
     h1 {
@@ -36,6 +37,11 @@
       margin: 25px 0;
       min-height: 110px;
       line-height: 1.6;
+    }
+
+    .resultado-icone {
+      font-size: 80px;
+      margin: 20px 0;
     }
 
     button {
@@ -86,15 +92,16 @@
     </p>
 
     <div id="situation" class="situation"></div>
+    <div id="iconeResultado" class="resultado-icone"></div>
 
-    <div>
+    <div id="botoes">
       <button class="zumbi" onclick="responder('zumbi')">🧟 Zumbi</button>
       <button class="jedi" onclick="responder('jedi')">🧙 Jedi</button>
     </div>
 
     <div id="feedback" class="feedback"></div>
 
-    <button class="next" onclick="proxima()">Próxima Situação</button>
+    <button id="nextBtn" class="next" onclick="proxima()">Próxima Situação</button>
 
   </div>
 
@@ -159,6 +166,10 @@ O objetivo é reconhecer seus hábitos.
       document.getElementById("situation").innerText =
         perguntas[atual].texto;
       document.getElementById("feedback").innerText = "";
+      document.getElementById("iconeResultado").innerText = "";
+      document.getElementById("botoes").style.display = "block";
+      document.getElementById("nextBtn").style.display = "inline-block";
+      document.querySelector(".box").style.background = "#1e293b";
     }
 
     function responder(escolha) {
@@ -189,33 +200,47 @@ O objetivo é reconhecer seus hábitos.
     function mostrarResultado() {
       let titulo = "";
       let mensagem = "";
+      let icone = "";
+      let corFundo = "";
+
+      // Ocultar botões após o último card
+      document.getElementById("botoes").style.display = "none";
+      document.getElementById("nextBtn").style.display = "none";
 
       if (pontosJedi > pontosZumbi) {
-        titulo = "🧙 Você é um Jedi Digital!";
+        titulo = "Você é um Jedi Digital!";
         mensagem = `
 Parabéns!
 
 Você demonstra hábitos investigativos, críticos e reflexivos.
 Continue fortalecendo essa postura ao longo da sua formação.
         `;
+        icone = "🧙";
+        corFundo = "#166534"; // verde escuro
       } else if (pontosZumbi > pontosJedi) {
-        titulo = "🧟 Você é um Zumbi Digital!";
+        titulo = "Você é um Zumbi Digital!";
         mensagem = `
 Atenção!
 
 Você identificou hábitos automáticos de pesquisa.
 Este é um ótimo momento para desenvolver mais autonomia.
         `;
+        icone = "🧟";
+        corFundo = "#991b1b"; // vermelho escuro
       } else {
-        titulo = "⚖️ Equilíbrio Digital!";
+        titulo = "Equilíbrio Digital!";
         mensagem = `
 Você apresenta atitudes automáticas e reflexivas.
 O próximo passo é fortalecer o pensamento crítico.
         `;
+        icone = "⚖️";
+        corFundo = "#1e3a8a"; // azul escuro
       }
 
       document.getElementById("situation").innerText = titulo;
       document.getElementById("feedback").innerText = mensagem;
+      document.getElementById("iconeResultado").innerText = icone;
+      document.querySelector(".box").style.background = corFundo;
     }
 
     mostrar();
