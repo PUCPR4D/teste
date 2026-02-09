@@ -156,84 +156,66 @@ O objetivo é reconhecer seus hábitos.
     let pontosZumbi = 0;
 
     function mostrar() {
-
       document.getElementById("situation").innerText =
         perguntas[atual].texto;
-
       document.getElementById("feedback").innerText = "";
     }
 
     function responder(escolha) {
-
       const pergunta = perguntas[atual];
 
       if (escolha === "zumbi") {
-
         pontosZumbi++;
-
         document.getElementById("feedback").innerText =
           "🧟 " + pergunta.zumbi;
       }
 
       if (escolha === "jedi") {
-
         pontosJedi++;
-
         document.getElementById("feedback").innerText =
           "🧙 " + pergunta.jedi;
       }
-
     }
 
     function proxima() {
-
       atual++;
-
       if (atual >= perguntas.length) {
         mostrarResultado();
         return;
       }
-
       mostrar();
     }
 
     function mostrarResultado() {
-
+      let titulo = "";
       let mensagem = "";
 
       if (pontosJedi > pontosZumbi) {
-
+        titulo = "🧙 Você é um Jedi Digital!";
         mensagem = `
-🧙 Parabéns!
+Parabéns!
 
 Você demonstra hábitos investigativos, críticos e reflexivos.
 Continue fortalecendo essa postura ao longo da sua formação.
         `;
-
       } else if (pontosZumbi > pontosJedi) {
-
+        titulo = "🧟 Você é um Zumbi Digital!";
         mensagem = `
-🧠 Atenção!
+Atenção!
 
 Você identificou hábitos automáticos de pesquisa.
 Este é um ótimo momento para desenvolver mais autonomia.
         `;
-
       } else {
-
+        titulo = "⚖️ Equilíbrio Digital!";
         mensagem = `
-⚖️ Equilíbrio Digital!
-
 Você apresenta atitudes automáticas e reflexivas.
 O próximo passo é fortalecer o pensamento crítico.
         `;
       }
 
-      document.getElementById("situation").innerText =
-        "📊 Seu Perfil Digital";
-
-      document.getElementById("feedback").innerText =
-        mensagem;
+      document.getElementById("situation").innerText = titulo;
+      document.getElementById("feedback").innerText = mensagem;
     }
 
     mostrar();
